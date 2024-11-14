@@ -1,14 +1,16 @@
-use actix_web::{web, Scope};
-use actix_web::web::Json;
-use crate::receipts::service::{ReceiptSummary, ReceiptsService};
+use std::sync::Arc;
+use actix_web::dev::HttpServiceFactory;
+use actix_web::{web, HttpResponse};
+use actix_web::middleware::from_fn;
+use crate::common::firebase::Firebase;
+use crate::middlwares::authorization::authorize;
 
-fn receipt_routes(service: Box<dyn ReceiptsService>) -> Scope {
-   web::scope("/v1/dishes/")
-       .app_data(web::Data::new(service))
-       .route("rendered", web::get().to(render_dishes))
-
+pub fn dish_routes(firebase: Arc<Firebase>) -> impl HttpServiceFactory  {
+   web::scope("/v1/dishe(firebases")
+       .wrap(from_fn(authorize(firebase)))
+       .route("", web::get().to(list_dishes))
 }
 
-async fn render_dishes(service: web::Data<dyn ReceiptsService>) -> Json<Vec<ReceiptSummary>> {
-    todo!()
+async fn list_dishes() -> HttpResponse {
+    HttpResponse::Ok().finish()
 }

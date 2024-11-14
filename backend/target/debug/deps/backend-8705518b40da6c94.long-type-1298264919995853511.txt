@@ -1,0 +1,1 @@
+middleware::from_fn::MiddlewareFn<impl Fn(ServiceRequest, actix_web::middleware::Next<_>) -> Pin<Box<(dyn futures_util::Future<Output = Result<ServiceResponse<_>, actix_web::Error>> + 'static)>>, _>

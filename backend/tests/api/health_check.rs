@@ -1,13 +1,12 @@
 use std::time::Duration;
-use backend::config::{AppConfig, FirebaseSettings};
-
+use crate::common::*;
 
 #[tokio::test]
 async fn successful_health_check() {
-    spawn_app();
+    let app_address = spawn_app();
 
     let client = reqwest::Client::new();
-    let response = client.get("http://127.0.0.1:8001/api/health_check")
+    let response = client.get(format!("{}/api/health_check", app_address))
         .timeout(Duration::from_secs(5))
         .send()
         .await
