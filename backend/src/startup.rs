@@ -22,18 +22,19 @@ pub struct AppData {
 }
 
 pub fn run(listener: TcpListener, app_config: AppConfig) -> Result<Server, std::io::Error> {
-    let firebase = Arc::new(Firebase{settings : app_config.firebase_settings.clone()});
+    let firebase = Arc::new(Firebase { settings: app_config.firebase_settings.clone() });
 
     let server = HttpServer::new(move || {
         App::new()
             .wrap(Logger::default())
             .service(
-            web::scope("/api")
-                .route("/health_check", web::get().to(health_check))
-                .service(dish_routes(firebase.clone()))
+                web::scope("/api")
+                    .route("/health_check", web::get().to(health_check))
+                    .service(dish_routes(firebase.clone()))
             )
     })
         .listen(listener)?
         .run();
 
     Ok(server)
+}
