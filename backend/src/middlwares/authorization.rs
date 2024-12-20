@@ -3,12 +3,10 @@ use actix_web::body::MessageBody;
 use actix_web::dev::{ServiceRequest, ServiceResponse};
 use actix_web::middleware::Next;
 use futures_util::future::LocalBoxFuture;
-use futures_util::{FutureExt, StreamExt};
+use futures_util::FutureExt;
 use std::sync::Arc;
-use actix_web::{web, HttpMessage};
-use tracing::{debug, error, info, warn};
-
-use crate::AppData;
+use actix_web::HttpMessage;
+use tracing::{debug, warn};
 
 pub fn authorize<B>(firebase: Arc<Firebase>) -> impl Fn(ServiceRequest, Next<B>) -> LocalBoxFuture<'static, Result<ServiceResponse<B>, actix_web::Error>>
 where

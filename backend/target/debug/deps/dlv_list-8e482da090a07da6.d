@@ -1,7 +1,0 @@
-/Users/stratulatdragos/Work/projects/mealplanner/backend/target/debug/deps/libdlv_list-8e482da090a07da6.rmeta: /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dlv-list-0.5.2/src/lib.rs
-
-/Users/stratulatdragos/Work/projects/mealplanner/backend/target/debug/deps/libdlv_list-8e482da090a07da6.rlib: /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dlv-list-0.5.2/src/lib.rs
-
-/Users/stratulatdragos/Work/projects/mealplanner/backend/target/debug/deps/dlv_list-8e482da090a07da6.d: /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dlv-list-0.5.2/src/lib.rs
-
-/Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/dlv-list-0.5.2/src/lib.rs:

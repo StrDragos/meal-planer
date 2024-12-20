@@ -1,8 +1,0 @@
-/Users/stratulatdragos/Work/projects/mealplanner/backend/target/debug/deps/libparse_display_derive-9a874e247583af81.dylib: /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/lib.rs /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/regex_utils.rs /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/syn_utils.rs /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/format_syntax.rs
-
-/Users/stratulatdragos/Work/projects/mealplanner/backend/target/debug/deps/parse_display_derive-9a874e247583af81.d: /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/lib.rs /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/regex_utils.rs /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/syn_utils.rs /Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/format_syntax.rs
-
-/Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/lib.rs:
-/Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/regex_utils.rs:
-/Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/syn_utils.rs:
-/Users/stratulatdragos/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-display-derive-0.9.1/src/format_syntax.rs:

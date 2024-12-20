@@ -6,7 +6,7 @@ use crate::common::firebase::Firebase;
 use crate::middlwares::authorization::authorize;
 
 pub fn dish_routes(firebase: Arc<Firebase>) -> impl HttpServiceFactory  {
-   web::scope("/v1/dishe(firebases")
+   web::scope("/v1/dishes")
        .wrap(from_fn(authorize(firebase)))
        .route("", web::get().to(list_dishes))
 }

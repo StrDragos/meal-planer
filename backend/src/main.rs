@@ -10,5 +10,5 @@ async fn main() -> Result<(), std::io::Error> {
     let port = config.port.unwrap_or(0);
     let listener = TcpListener::bind(format!("0.0.0.0:{}", &port)).expect("Can't bind to port");
     info!("Running app on port {}", &port);
-    run(listener, config)?.await
+    run(listener, config).await.map(|_| () )
 }

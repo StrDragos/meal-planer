@@ -1,14 +1,14 @@
-use crate::common::{firebase_auth_container, sign_in, with_firebase_auth_container};
+use crate::common::{sign_in, with_firebase_auth_container};
 use actix_web::dev::Server;
 use actix_web::middleware::{from_fn, Logger};
-use actix_web::{get, web, App, HttpMessage, HttpRequest, HttpResponse, HttpServer, Responder};
-use backend::common::firebase::{Firebase, UserData};
+use actix_web::web::Json;
+use actix_web::{get, web, App, HttpMessage, HttpRequest, HttpServer, Responder};
+use backend::common::firebase::{Firebase, Context};
 use backend::config::FirebaseSettings;
 use backend::middlwares::authorization::authorize;
+use serde::{Deserialize, Serialize};
 use std::net::TcpListener;
 use std::sync::Arc;
-use actix_web::web::Json;
-use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 struct TestResponse {
@@ -17,14 +17,14 @@ struct TestResponse {
 
 #[get("/test")]
 async fn test_endpoint(req: HttpRequest) -> actix_web::Result<impl Responder> {
-    if let Some(user_data) = req.extensions().get::<UserData>() {
-        Ok(web::Json(TestResponse { user_id: user_data.user_id.clone() }))
+    if let Some(user_data) = req.extensions().get::<Context>() {
+        Ok(Json(TestResponse { user_id: user_data.user_id.clone() }))
     } else {
         Err(actix_web::error::ErrorUnauthorized("Unauthorized"))
     }
 }
 
-async fn mock_app() -> Result<(Server, String), std::io::Error> {
+pub async fn mock_app() -> Result<(Server, String), std::io::Error> {
     tracing_subscriber::fmt::init();
     let listener = TcpListener::bind("127.0.0.1:0").expect("Can't bind to port");
     let firebase = Firebase {

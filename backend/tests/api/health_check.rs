@@ -3,7 +3,7 @@ use crate::common::*;
 
 #[tokio::test]
 async fn successful_health_check() {
-    let app_address = spawn_app();
+    let app_address = spawn_app(default_db_config()).await;
 
     let client = reqwest::Client::new();
     let response = client.get(format!("{}/api/health_check", app_address))
