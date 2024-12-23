@@ -1,5 +1,4 @@
 use std::sync::Arc;
-use futures_util::TryFutureExt;
 use crate::common::errors::app_error::AppError;
 use crate::userdata::domain::diet::Diet;
 use crate::userdata::domain::user_data::{SaveUserSettings, UserSettings};

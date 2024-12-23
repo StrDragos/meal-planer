@@ -1,4 +1,4 @@
-use crate::common::{sign_in, with_firebase_auth_container};
+use crate::common::{enable_tracing, sign_in, with_firebase_auth_container};
 use actix_web::dev::Server;
 use actix_web::middleware::{from_fn, Logger};
 use actix_web::web::Json;
@@ -25,7 +25,6 @@ async fn test_endpoint(req: HttpRequest) -> actix_web::Result<impl Responder> {
 }
 
 pub async fn mock_app() -> Result<(Server, String), std::io::Error> {
-    tracing_subscriber::fmt::init();
     let listener = TcpListener::bind("127.0.0.1:0").expect("Can't bind to port");
     let firebase = Firebase {
         settings: FirebaseSettings {
@@ -52,8 +51,8 @@ pub async fn mock_app() -> Result<(Server, String), std::io::Error> {
 
 #[tokio::test]
 async fn test_authorization() {
-    with_firebase_auth_container(|admin_port| async move {
-        println!("Port {}", admin_port);
+    enable_tracing();
+    with_firebase_auth_container(|&admin_port| async move {
         let (server, server_address) = mock_app().await.expect("Mock app to start");
         let _ = tokio::spawn(server);
         let token = sign_in("test@example.com".into(), "123ABC".into(), admin_port.to_string())

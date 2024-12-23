@@ -1,4 +1,4 @@
-use crate::common::{default_db_config, sign_in, spawn_app, with_firebase_auth_container};
+use crate::common::{default_db_config, enable_tracing, sign_in, spawn_app, with_firebase_auth_container};
 use serde_json::json;
 use tracing::field::debug;
 use tracing::log::debug;
@@ -9,13 +9,10 @@ use backend::userdata::domain::diet::Diet;
 
 #[tokio::test]
 async fn get_diets() {
-    tracing_subscriber::fmt()
-        .with_max_level(tracing::Level::DEBUG)
-        .init();
+    let _ = enable_tracing();
 
-    with_firebase_auth_container(|admin_port| async move {
+    with_firebase_auth_container(|&admin_port| async move {
         with_db_container(|container, db_config| async move {
-            debug!("container {:?}", container);
             let _ = migrate(&db_config.postgres_url()).await;
             let address = spawn_app(db_config.clone()).await;
             let token = sign_in(
@@ -44,11 +41,9 @@ async fn get_diets() {
 
 #[tokio::test]
 async fn save_settings() {
-    tracing_subscriber::fmt()
-        .with_max_level(tracing::Level::DEBUG)
-        .init();
+    let _ = enable_tracing();
 
-    with_firebase_auth_container(|admin_port| async move {
+    with_firebase_auth_container(|&admin_port| async move {
         with_db_container(|_, db_settings| async move {
             debug!("db test settings: {:?}", db_settings);
             let _ = migrate(&db_settings.postgres_url()).await;

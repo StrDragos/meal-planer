@@ -11,7 +11,6 @@ use tokio::sync::Mutex;
 
 pub mod common;
 pub mod config;
-mod dishes;
 pub mod middlwares;
 pub mod userdata;
 

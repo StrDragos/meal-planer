@@ -1,4 +1,3 @@
-use futures_util::future::err;
 use sqlx::Error;
 use thiserror::Error;
 use tracing::error;

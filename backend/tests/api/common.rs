@@ -1,3 +1,4 @@
+use std::error::Error;
 use anyhow::anyhow;
 use backend::config::{AppConfig, DbConfig};
 use futures_util::TryFutureExt;
@@ -9,6 +10,7 @@ use std::io::ErrorKind;
 use std::net::TcpListener;
 use std::thread::sleep;
 use std::time::Duration;
+use futures_util::future::err;
 use testcontainers::core::{ContainerPort, WaitFor};
 use testcontainers::runners::AsyncRunner;
 use testcontainers::{ContainerAsync, GenericImage, ImageExt};
@@ -82,7 +84,7 @@ pub async fn firebase_auth_container(
 type AuthPort = u16;
 pub async fn with_firebase_auth_container<F, Fut>(f: F)
 where
-    F: FnOnce(AuthPort) -> Fut,
+    F: FnOnce(&AuthPort) -> Fut,
     Fut: Future<Output = ()>,
 {
 
@@ -106,7 +108,7 @@ where
     let auth_port = ports
         .map_to_host_port_ipv4(ContainerPort::Tcp(9099))
         .expect("Couldn't not get available ports");
-    f(auth_port).await;
+    f(&auth_port).await;
 }
 
 pub async fn sign_in(email: String, password: String, port: String) -> Result<String, io::Error> {
@@ -143,4 +145,18 @@ pub async fn sign_in(email: String, password: String, port: String) -> Result<St
         tokio::time::sleep(Duration::from_secs(1)).await;
     }
     Err(ErrorKind::Other.into())
+}
+
+pub fn enable_tracing() {
+    let tracing = tracing_subscriber::fmt()
+        .with_max_level(tracing::Level::DEBUG)
+        .try_init();
+
+    match tracing {
+        Ok(_) => (),
+        Err(err) => {
+            debug!("failed to initialize tracing {}", err)
+        }
+    }
+
 }

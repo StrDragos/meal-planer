@@ -9,8 +9,7 @@ use tracing::{debug, info};
 pub async fn migrate(db_url: &str) {
     debug!("Migration for db_url:{}", db_url);
     let pool = PgPoolOptions::new()
-        .max_connections(1)
-        .acquire_timeout(Duration::from_secs(5))
+        .max_connections(2)
         .connect(db_url).await.unwrap();
 
     sqlx::migrate!("./migrations")
@@ -19,7 +18,7 @@ pub async fn migrate(db_url: &str) {
 
 pub async fn with_db_container<T, Fut>(exec: T)
 where
-    T: FnOnce(ContainerAsync<testcontainers_modules::postgres::Postgres>, DbConfig) -> Fut,
+    T: FnOnce(&ContainerAsync<testcontainers_modules::postgres::Postgres>, DbConfig) -> Fut,
     Fut: Future<Output = ()>,
 {
     let container = testcontainers_modules::postgres::Postgres::default()
@@ -39,5 +38,5 @@ where
         host: "localhost".to_string(),
     };
 
-    exec(container, config).await
+    exec(&container, config).await
 }
