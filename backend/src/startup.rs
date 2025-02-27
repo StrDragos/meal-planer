@@ -34,7 +34,7 @@ pub async fn run(listener: TcpListener, app_config: AppConfig) -> Result<Server,
     );
 
     let server = HttpServer::new(move || {
-        App::new(). wrap(Logger::default()).service(
+        App::new().wrap(Logger::default()).service(
             web::scope("/api")
                 .service(user_settings_routes(
                     firebase.clone(),
